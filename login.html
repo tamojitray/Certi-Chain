@@ -14,6 +14,8 @@
 <hr>
 <button onclick="register()">Register</button>
 
+<p id="userAddress"></p> <!-- Display user's address -->
+
 <script>
     let web3;
     let contract;
@@ -76,6 +78,16 @@
         // Connect to MetaMask
         if (window.ethereum) {
             web3 = new Web3(window.ethereum);
+
+            // Add event listener for account changes
+            window.ethereum.on('accountsChanged', (accounts) => {
+                const userAddress = accounts[0];
+                console.log("Account changed:", userAddress);
+
+                // Set button text dynamically
+                document.getElementById("loginButton").innerText = `Login with ${userAddress}`;
+            });
+
             try {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 const userAddress = accounts[0];
