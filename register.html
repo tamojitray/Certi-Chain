@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Assignment</title>
+    <!-- Add the web3.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.2/dist/web3.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <center>
+    <h2>Role Assignment</h2>
+
+    <form id="roleForm">
+        <label for="userAddress">User Address (MetaMask):</label>
+        <input type="text" id="userAddress" name="userAddress" readonly>
+        <br>
+        <label for="role">Select Role:</label>
+        <select id="role" name="role">
+            <option value="Student">Student</option>
+            <option value="Authority">Authority</option>
+        </select>
+
+        <button type="button" onclick="assignRole()">Assign Role</button>
+    </form>
+
+    <script>
+        // Check if MetaMask is installed
+        if (typeof window.ethereum !== 'undefined') {
+            window.web3 = new Web3(window.ethereum);
+        } else {
+            // Handle the case where MetaMask is not installed or not enabled
+            alert("Please install MetaMask to use this application.");
+        }
+
+        // Function to auto-fill MetaMask address
+        async function loadAddress() {
+            try {
+                // Request accounts using Ethereum provider
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const userAddress = accounts[0];
+                document.getElementById('userAddress').value = userAddress;
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Assign Role function
+        async function assignRole() {
+            const userAddress = document.getElementById('userAddress').value;
+            const selectedRole = document.getElementById('role').value;
+
+            // Create contract instance
+            const contractABI = [
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "_user",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "_role",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "assignRole",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "_user",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "checkRole",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "ownerInfo",
+                    "outputs": [
+                        {
+                            "internalType": "address",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                }
+            ];
+            const contractAddress = '0xB527436d6F64Bd8f2Ed9BeF0B422a82c2adFc283'; // Replace with your contract address
+            const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+            try {
+                // Call assignRole function
+                await contract.methods.assignRole(userAddress, selectedRole).send({ from: userAddress });
+                alert('Role assigned successfully!');
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Auto-fill address on page load
+        loadAddress();
+    </script>
+    </center>
+</body>
+</html>

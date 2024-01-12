@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.2/dist/web3.min.js"></script>
+</head>
+<body>
+
+<div id="pageContent" style="display: none;">
+    <!-- Your page content goes here -->
+    <h1>Welcome to the Student Page!</h1>
+    <p>This content is only accessible to users with the "Student" role.</p>
+</div>
+
+<script>
+    async function checkUserRole() {
+        // Check if web3 is available
+        if (typeof window.ethereum === 'undefined' || typeof window.web3 === 'undefined') {
+            alert('Please install MetaMask to access this page.');
+            return;
+        }
+
+        try {
+            // Request account access
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+            if (!accounts || accounts.length === 0) {
+                // No accounts found, prompt the user to log in
+                alert('Please log in to your MetaMask account.');
+                return;
+            }
+
+            const userAddress = accounts[0];
+
+            // Use web3 to check the user's role
+            const web3 = new Web3(window.ethereum);
+
+            // Replace 'YOUR_CONTRACT_ADDRESS' with your actual contract address
+            const contractABI = [
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "_user",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "_role",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "assignRole",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "_user",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "checkRole",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "ownerInfo",
+                    "outputs": [
+                        {
+                            "internalType": "address",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                }
+            ];
+            const contractAddress = '0xB527436d6F64Bd8f2Ed9BeF0B422a82c2adFc283'; // Replace with your contract address
+            const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+            const userRole = await contract.methods.checkRole(userAddress).call();
+
+            // Check if the user has the "Student" role
+            if (userRole === 'Student') {
+                // Display the page content
+                $('#pageContent').show();
+            } else {
+                // Redirect to login page
+                alert("This page is for student role only and your dont have student role. Plsease check your address");
+                window.location.replace('login.html');
+            }
+
+        } catch (error) {
+            console.error(error);
+
+            if (error.code === 4001) {
+                // User rejected the request
+                alert('You need to approve the MetaMask request to access this page.');
+            } else {
+                // Other errors
+                alert('Error accessing MetaMask account or checking user role. See the console for details.');
+            }
+        }
+    }
+
+    // Connect to MetaMask and check user role when the page loads
+    $(document).ready(() => {
+        checkUserRole();
+    });
+
+    // Reload the page when MetaMask account changes
+    window.ethereum.on('accountsChanged', (accounts) => {
+        location.reload();
+    });
+
+</script>
+
+</body>
+</html>
