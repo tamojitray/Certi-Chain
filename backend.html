@@ -281,7 +281,11 @@
 
             try {
                 // Call the addMarks function
-                await contract.methods.addMarks(studentAddress, [subject], [parseInt(marks)]).send({ from: ethereum.selectedAddress });
+                const subjectsArray = subject.split(',').map(s => s.trim());
+		const marksArray = marks.split(',').map(m => parseInt(m.trim()));
+
+		// Call the addMarks function
+		await contract.methods.addMarks(studentAddress, subjectsArray, marksArray).send({ from: ethereum.selectedAddress });
                 console.log('Marks added successfully.');
             } catch (error) {
                 console.error(error);
