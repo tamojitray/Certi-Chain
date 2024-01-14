@@ -280,8 +280,8 @@
             }
 
             // Split subjects and marks into arrays
-	    const subjectsArray = subjectInput.split(',').map(s => s.trim());
-	    const marksArray = marksInput.split(',').map(m => parseInt(m.trim()));
+	    const subjectsArray = subject.split(',').map(s => s.trim());
+	    const marksArray = marks.split(',').map(m => parseInt(m.trim()));
 	
 	    // Validate that the number of subjects matches the number of marks
 	    if (subjectsArray.length !== marksArray.length) {
