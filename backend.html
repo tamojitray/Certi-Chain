@@ -281,7 +281,7 @@
 
             try {
                 // Call the addMarks function
-                await contract.methods.addMarks(studentAddress, [subject], [marks]).send({ from: ethereum.selectedAddress });
+                await contract.methods.addMarks(studentAddress, [subject], [parseInt(marks)]).send({ from: ethereum.selectedAddress });
                 console.log('Marks added successfully.');
             } catch (error) {
                 console.error(error);
