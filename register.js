@@ -275,11 +275,9 @@ async function checkUserRole() {
         const contract = new web3.eth.Contract(contractABI, contractAddress);
 
         const userRole = await contract.methods.View_Roles().call({from: userAddress });
-        
-        //const userName = await contract.methods.View_RoleFromAddress().call({from: userAddress }); 
 
         // Check if the user has the "Student" role
-        if (userRole === '') {
+        if (userRole !== 'Authority' || userRole !== 'Student') {
             // Display the page content
             $('#content').show();
             const contentElement = document.getElementById('content');

@@ -290,7 +290,8 @@ async function checkUserRole() {
             window.location.replace('index.html');
         }
 
-    } catch (error) {
+    } 
+    catch (error) {
         console.error(error);
 
         if (error.code === 4001) {
