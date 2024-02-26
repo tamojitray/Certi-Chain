@@ -289,7 +289,7 @@ async function init() {
     console.log('Init',role);   
 
 	const loginButton = document.getElementById('loginButton');
-    if(role == 'Student' || role == 'Authprity') {
+    if(role == 'Student' || role == 'Authority') {
         loginButton.style.display = 'block';
     }
     else {
