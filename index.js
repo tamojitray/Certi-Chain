@@ -301,11 +301,12 @@ async function init() {
 window.addEventListener('load', async () => {
     // Check if MetaMask is installed
     if (typeof window.ethereum !== 'undefined') {
-		checkRole();
+		
         web3 = new Web3(window.ethereum);
 
         try {
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+			checkRole();
             if (accounts.length > 0) {
                 // MetaMask is connected
                 isConnected = true;
