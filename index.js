@@ -361,7 +361,7 @@ async function checkRole() {
     console.log('checkRole',role);
 
 	const loginButton = document.getElementById('loginButton');    
-    if(role == 'Student' || role == 'Authprity') {
+    if(role == 'Student' || role == 'Authority') {
         loginButton.style.display = 'block';
     }
     else {
@@ -388,7 +388,7 @@ function updateUI2() {
 
     console.log('updateui',role);
     const loginButton = document.getElementById('loginButton');    
-    if(role == 'Student' || role == 'Authprity') {
+    if(role == 'Student' || role == 'Authority') {
         loginButton.style.display = 'block';
     }
     else {
