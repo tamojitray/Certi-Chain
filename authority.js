@@ -282,6 +282,7 @@ async function checkUserRole() {
         if (userRole === 'Authority') {
             // Display the page content
             $('#name').show();
+            $('#buttons').show();
             const nameElement = document.getElementById('name');
             nameElement.innerHTML = `Welcome ${userName}`;
         } else {
@@ -303,8 +304,16 @@ async function checkUserRole() {
             window.location.replace('index.html');
         }
     }
-
 }
+
+async function issueCerti() {
+	window.location.href = "issue_certificate.html";
+}
+
+async function verifyCerti() {
+	window.location.href = "verify_certificate.html";
+}
+
 // Connect to MetaMask and check user role when the page loads
 $(document).ready(() => {
     checkUserRole();

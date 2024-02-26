@@ -282,6 +282,7 @@ async function checkUserRole() {
         if (userRole === 'Student') {
             // Display the page content
             $('#name').show();
+            $('#buttons').show();
             const nameElement = document.getElementById('name');
             nameElement.innerHTML = `Welcome ${userName}`;
         } else {
@@ -306,6 +307,16 @@ async function checkUserRole() {
     }
 
 }
+
+async function viewCerti() {
+	window.location.href = "view_certificate.html";
+}
+
+async function approveCerti() {
+	window.location.href = "approve_certificate.html";
+}
+
+
 // Connect to MetaMask and check user role when the page loads
 $(document).ready(() => {
     checkUserRole();
