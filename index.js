@@ -280,19 +280,16 @@ async function init() {
     contract = new web3.eth.Contract(contractABI, contractAddress);
     const accounts = await web3.eth.getAccounts();
     const userAddress = accounts[0];    
-    role = await contract.methods.View_Roles().call({from: userAddress });
-    console.log('Init',role);  
+    role = await contract.methods.View_Roles().call({from: userAddress }); 
 	const statusElement = document.getElementById('status');
 	const loginButton = document.getElementById('loginButton');
 	const registerButton = document.getElementById('registerButton');
 	if (isConnected) {		
 		if(role == 'Student' || role == 'Authority') {
 			loginButton.style.display = 'block';
-			console.log("1");
 			registerButton.style.display = 'none';
 		}
 		else {
-			console.log("2");
 			registerButton.style.display = 'block';
 			loginButton.style.display = 'none';		
 		}
@@ -361,7 +358,7 @@ async function checkRole() {
     const userAddress = accounts[0];    
     // Call the checkRole function
     role = await contract.methods.View_Roles().call({from: userAddress });    
-    console.log('checkRole',role);
+	const statusElement = document.getElementById('status');
 	const loginButton = document.getElementById('loginButton');
 	const registerButton = document.getElementById('registerButton');
 	if (isConnected) {		
@@ -375,9 +372,10 @@ async function checkRole() {
 		}
 	}
 	else {
+		statusElement.innerHTML = 'Not Connected';
 		registerButton.style.display = 'none';
 		loginButton.style.display = 'none';
-	}   
+	}  
 }
 
 function updateUI(address) {
@@ -394,8 +392,8 @@ function updateUI(address) {
 }
 
 function updateUI2() {
-    console.log('updateui',role);
-    const loginButton = document.getElementById('loginButton');
+    const statusElement = document.getElementById('status');
+	const loginButton = document.getElementById('loginButton');
 	const registerButton = document.getElementById('registerButton');
 	if (isConnected) {		
 		if(role == 'Student' || role == 'Authority') {
@@ -408,6 +406,7 @@ function updateUI2() {
 		}
 	}
 	else {
+		statusElement.innerHTML = 'Not Connected';
 		registerButton.style.display = 'none';
 		loginButton.style.display = 'none';
 	}  
