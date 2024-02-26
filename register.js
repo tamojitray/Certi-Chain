@@ -275,20 +275,22 @@ async function checkUserRole() {
         const contract = new web3.eth.Contract(contractABI, contractAddress);
 
         const userRole = await contract.methods.View_Roles().call({from: userAddress });
+        
 
-        // Check if the user has the "Student" role
-        if (userRole !== 'Authority' || userRole !== 'Student') {
+        // Check the user role
+        if (userRole === '') {
             // Display the page content
             $('#content').show();
             const contentElement = document.getElementById('content');
-            contentElement.innerHTML = `Register`;
+            contentElement.innerHTML = `Welcome`;
         } else {
             // Redirect to login page
-            alert("This page is for student role only and your dont have student role. Plsease check your address");
+            alert("This page is for non registered user only");
             window.location.replace('index.html');
         }
 
-    } catch (error) {
+    } 
+    catch (error) {
         console.error(error);
 
         if (error.code === 4001) {
