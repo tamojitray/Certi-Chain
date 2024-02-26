@@ -396,4 +396,16 @@ function updateUI2() {
     }
 }
 
+async function loginButton() {
+	checkRole();
+	// Redirect based on the role
+	if (role === "Student") {
+		window.location.href = "student.html";
+	} else if (role === "Authority") {
+		window.location.href = "authority.html";
+	} else {
+		alert("You don't have a valid role. Please register first");
+	}
+}
+
 window.onload = init;
