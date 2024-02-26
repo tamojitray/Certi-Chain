@@ -285,7 +285,7 @@ async function init() {
 	const loginButton = document.getElementById('loginButton');
 	const registerButton = document.getElementById('registerButton');
 	if (isConnected) {		
-		if(role == 'Student' || role == 'Authority') {
+		if(role === 'Student' || role === 'Authority') {
 			loginButton.style.display = 'block';
 			registerButton.style.display = 'none';
 		}
@@ -362,7 +362,7 @@ async function checkRole() {
 	const loginButton = document.getElementById('loginButton');
 	const registerButton = document.getElementById('registerButton');
 	if (isConnected) {		
-		if(role == 'Student' || role == 'Authority') {
+		if(role === 'Student' || role === 'Authority') {
 			loginButton.style.display = 'block';
 			registerButton.style.display = 'none';
 		}
@@ -396,7 +396,7 @@ function updateUI2() {
 	const loginButton = document.getElementById('loginButton');
 	const registerButton = document.getElementById('registerButton');
 	if (isConnected) {		
-		if(role == 'Student' || role == 'Authority') {
+		if(role === 'Student' || role === 'Authority') {
 			loginButton.style.display = 'block';
 			registerButton.style.display = 'none';
 		}
