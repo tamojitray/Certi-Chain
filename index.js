@@ -1,8 +1,8 @@
 let web3;
 let isConnected = false;
 let role;
-let contract;
-    
+let contract;    
+
 const contractABI = [
 	{
 		"inputs": [
@@ -255,14 +255,12 @@ async function init() {
     // Connect to MetaMask
     if (window.ethereum) {
         web3 = new Web3(window.ethereum);
-
         // Add event listener for account changes
         window.ethereum.on('accountsChanged', (accounts) => {
             const userAddress = accounts[0];
             console.log("Account changed:", userAddress);
 			checkRole();
         });
-
         try {
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             const userAddress = accounts[0];
@@ -278,35 +276,38 @@ async function init() {
         alert("MetaMask not detected!");
         //window.location.replace('login.html');
     }
-
     // Load contract
     contract = new web3.eth.Contract(contractABI, contractAddress);
-
     const accounts = await web3.eth.getAccounts();
     const userAddress = accounts[0];    
     role = await contract.methods.View_Roles().call({from: userAddress });
-
-    console.log('Init',role);   
-
+    console.log('Init',role);  
+	const statusElement = document.getElementById('status');
 	const loginButton = document.getElementById('loginButton');
 	const registerButton = document.getElementById('registerButton');
-    if(role == 'Student' || role == 'Authority') {
-        loginButton.style.display = 'block';
+	if (isConnected) {		
+		if(role == 'Student' || role == 'Authority') {
+			loginButton.style.display = 'block';
+			console.log("1");
+			registerButton.style.display = 'none';
+		}
+		else {
+			console.log("2");
+			registerButton.style.display = 'block';
+			loginButton.style.display = 'none';		
+		}
+	}
+	else {
+		statusElement.innerHTML = 'Not Connected';
 		registerButton.style.display = 'none';
-    }
-    else {
-        loginButton.style.display = 'none';
-		registerButton.style.display = 'block';
-    }
-    
+		loginButton.style.display = 'none';
+	}	   
 }
 
 window.addEventListener('load', async () => {
     // Check if MetaMask is installed
-    if (typeof window.ethereum !== 'undefined') {
-		
+    if (typeof window.ethereum !== 'undefined') {		
         web3 = new Web3(window.ethereum);
-
         try {
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
 			checkRole();
@@ -324,18 +325,17 @@ window.addEventListener('load', async () => {
         console.error('MetaMask not detected');
         alert("MetaMask not detected!");
     }
-
-    window.ethereum.on('accountsChanged', (accounts) => {
-		checkRole();
+    window.ethereum.on('accountsChanged', (accounts) => {		
         if (accounts.length > 0) {
-            isConnected = true;            
+            isConnected = true;   
+			checkRole();         
             updateUI(accounts[0]); 
         } else {
             isConnected = false;
+			checkRole();
             updateUI('');
         }
     });
-
 });
 
 async function connectToMetamaskButton() {
@@ -358,33 +358,35 @@ async function connectToMetamaskButton() {
 
 async function checkRole() {
     const accounts = await web3.eth.getAccounts();
-    const userAddress = accounts[0];
-    
+    const userAddress = accounts[0];    
     // Call the checkRole function
     role = await contract.methods.View_Roles().call({from: userAddress });    
     console.log('checkRole',role);
-
-	const loginButton = document.getElementById('loginButton');    
+	const loginButton = document.getElementById('loginButton');
 	const registerButton = document.getElementById('registerButton');
-    if(role == 'Student' || role == 'Authority') {
-        loginButton.style.display = 'block';
+	if (isConnected) {		
+		if(role == 'Student' || role == 'Authority') {
+			loginButton.style.display = 'block';
+			registerButton.style.display = 'none';
+		}
+		else {
+			registerButton.style.display = 'block';
+			loginButton.style.display = 'none';		
+		}
+	}
+	else {
 		registerButton.style.display = 'none';
-    }
-    else {
-        loginButton.style.display = 'none';
-		registerButton.style.display = 'block';
-    }
+		loginButton.style.display = 'none';
+	}   
 }
 
 function updateUI(address) {
     const statusElement = document.getElementById('status');
-    const connectToMetamaskButton = document.getElementById('connectToMetamaskButton');    
-
+    const connectToMetamaskButton = document.getElementById('connectToMetamaskButton'); 
     if (isConnected) {
         statusElement.innerHTML = `Connected Address: ${address}`;
         connectToMetamaskButton.style.display = 'none'; // Hide the connect button when connected  
-    } 
-
+    }
     else {
         statusElement.innerHTML = 'Not Connected';
         connectToMetamaskButton.style.display = 'block'; // Show the connect button when not connected
@@ -392,18 +394,23 @@ function updateUI(address) {
 }
 
 function updateUI2() {
-
     console.log('updateui',role);
-    const loginButton = document.getElementById('loginButton');    
+    const loginButton = document.getElementById('loginButton');
 	const registerButton = document.getElementById('registerButton');
-    if(role == 'Student' || role == 'Authority') {
-        loginButton.style.display = 'block';
+	if (isConnected) {		
+		if(role == 'Student' || role == 'Authority') {
+			loginButton.style.display = 'block';
+			registerButton.style.display = 'none';
+		}
+		else {
+			registerButton.style.display = 'block';
+			loginButton.style.display = 'none';		
+		}
+	}
+	else {
 		registerButton.style.display = 'none';
-    }
-    else {
-        loginButton.style.display = 'none';
-		registerButton.style.display = 'block';
-    }
+		loginButton.style.display = 'none';
+	}  
 }
 
 async function loginButton() {
