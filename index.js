@@ -289,11 +289,14 @@ async function init() {
     console.log('Init',role);   
 
 	const loginButton = document.getElementById('loginButton');
+	const registerButton = document.getElementById('registerButton');
     if(role == 'Student' || role == 'Authority') {
         loginButton.style.display = 'block';
+		registerButton.style.display = 'none';
     }
     else {
         loginButton.style.display = 'none';
+		registerButton.style.display = 'block';
     }
     
 }
@@ -362,11 +365,14 @@ async function checkRole() {
     console.log('checkRole',role);
 
 	const loginButton = document.getElementById('loginButton');    
+	const registerButton = document.getElementById('registerButton');
     if(role == 'Student' || role == 'Authority') {
         loginButton.style.display = 'block';
+		registerButton.style.display = 'none';
     }
     else {
         loginButton.style.display = 'none';
+		registerButton.style.display = 'block';
     }
 }
 
@@ -389,11 +395,14 @@ function updateUI2() {
 
     console.log('updateui',role);
     const loginButton = document.getElementById('loginButton');    
+	const registerButton = document.getElementById('registerButton');
     if(role == 'Student' || role == 'Authority') {
         loginButton.style.display = 'block';
+		registerButton.style.display = 'none';
     }
     else {
         loginButton.style.display = 'none';
+		registerButton.style.display = 'block';
     }
 }
 
@@ -407,6 +416,10 @@ async function loginButton() {
 	} else {
 		alert("You don't have a valid role. Please register first");
 	}
+}
+
+async function registerButton() {
+	window.location.href = "register.html";
 }
 
 window.onload = init;
