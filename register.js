@@ -1,3 +1,7 @@
+let contract;
+let web3;
+let userAddress;
+
 async function checkUserRole() {
     // Check if web3 is available
     if (typeof window.ethereum === 'undefined' || typeof window.web3 === 'undefined') {
@@ -5,7 +9,6 @@ async function checkUserRole() {
         window.location.replace('index.html');
         return;
     }
-
     try {
         // Request account access
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -16,12 +19,9 @@ async function checkUserRole() {
             window.location.replace('index.html');
             return;
         }
-
-        const userAddress = accounts[0];
-
+        userAddress = accounts[0];
         // Use web3 to check the user's role
-        const web3 = new Web3(window.ethereum);
-
+        web3 = new Web3(window.ethereum);
         // Replace 'YOUR_CONTRACT_ADDRESS' with your actual contract address
         const contractABI = [
             {
@@ -269,26 +269,23 @@ async function checkUserRole() {
                 "type": "function"
             }
         ];
-        const contractAddress = '0xEBE5D1381E0799e8e68e5B89f3BeBC3860Fe41F4'; // Replace with your contract address
-        
-        
-        const contract = new web3.eth.Contract(contractABI, contractAddress);
-
-        const userRole = await contract.methods.View_Roles().call({from: userAddress });
-        
-
+        const contractAddress = '0xEBE5D1381E0799e8e68e5B89f3BeBC3860Fe41F4'; // Replace with your contract address      
+        contract = new web3.eth.Contract(contractABI, contractAddress);
+        const userRole = await contract.methods.View_Roles().call({from: userAddress });       
         // Check the user role
         if (userRole === '') {
             // Display the page content
+            $('#address').show();
             $('#content').show();
-            const contentElement = document.getElementById('content');
-            contentElement.innerHTML = `Welcome`;
-        } else {
+            
+            const addressElement = document.getElementById('address');
+            addressElement.innerHTML = `Address: ${userAddress}`;
+        } 
+        else {
             // Redirect to login page
             alert("This page is for non registered user only");
             window.location.replace('index.html');
         }
-
     } 
     catch (error) {
         console.error(error);
@@ -303,8 +300,16 @@ async function checkUserRole() {
             window.location.replace('index.html');
         }
     }
-
 }
+
+async function submit() {
+    const role = document.getElementById('role').value;
+    const name = document.getElementById('name').value;
+    await contract.methods.RegisterPage(role, name).send({ from: userAddress });
+    alert("Registered successfully, redirecting to Login page");
+    window.location.replace('index.html');
+}
+
 // Connect to MetaMask and check user role when the page loads
 $(document).ready(() => {
     checkUserRole();
