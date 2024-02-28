@@ -23,6 +23,19 @@ const contractABI = [
 		"type": "function"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "certificateId",
+				"type": "bytes32"
+			}
+		],
+		"name": "CertificateIssued",
+		"type": "event"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -249,7 +262,7 @@ const contractABI = [
 		"type": "function"
 	}
 ];
-const contractAddress = '0xEBE5D1381E0799e8e68e5B89f3BeBC3860Fe41F4'; // Replace with your contract address
+const contractAddress = '0xFe095360461F26EDb2D695C4d503eB44F5DA25a3'; // Replace with your contract address
 
 async function init() {
     // Connect to MetaMask

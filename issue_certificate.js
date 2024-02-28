@@ -1,3 +1,7 @@
+let contract;
+let web3;
+let userAddress;
+
 async function checkUserRole() {
     // Check if web3 is available
     if (typeof window.ethereum === 'undefined' || typeof window.web3 === 'undefined') {
@@ -17,10 +21,10 @@ async function checkUserRole() {
             return;
         }
 
-        const userAddress = accounts[0];
+        userAddress = accounts[0];
 
         // Use web3 to check the user's role
-        const web3 = new Web3(window.ethereum);
+        web3 = new Web3(window.ethereum);
 
         // Replace 'YOUR_CONTRACT_ADDRESS' with your actual contract address
         const contractABI = [
@@ -285,14 +289,14 @@ async function checkUserRole() {
         const contractAddress = '0xFe095360461F26EDb2D695C4d503eB44F5DA25a3'; // Replace with your contract address
         
         
-        const contract = new web3.eth.Contract(contractABI, contractAddress);
+        contract = new web3.eth.Contract(contractABI, contractAddress);
 
         const userRole = await contract.methods.View_Roles().call({from: userAddress });
         
         const userName = await contract.methods.View_RoleFromAddress().call({from: userAddress }); 
 
-        // Check if the user has the "Student" role
-        if (userRole === 'Student') {
+        // Check if the user has the "Authority" role
+        if (userRole === 'Authority') {
             // Display the page content
             $('#name').show();
             const nameElement = document.getElementById('name');
@@ -300,12 +304,11 @@ async function checkUserRole() {
             $('#buttons').show();            
         } else {
             // Redirect to login page
-            alert("This page is for student role only and your dont have student role. Plsease check your address");
+            alert("This page is for authority role only and your dont have authority role. Plsease check your address");
             window.location.replace('index.html');
         }
 
-    } 
-    catch (error) {
+    } catch (error) {
         console.error(error);
 
         if (error.code === 4001) {
@@ -318,15 +321,34 @@ async function checkUserRole() {
             window.location.replace('index.html');
         }
     }
-
 }
 
-async function viewCerti() {
-	window.location.href = "view_certificate.html";
-}
+async function submit() {
+	const student_address = document.getElementById('address').value;
+    const course = document.getElementById('course').value;
+    const grade = document.getElementById('grade').value;
+    const roll = document.getElementById('roll').value;
+    const year = document.getElementById('year').value;
+    await contract.methods.IssueCertificate(student_address, course, grade, roll, year)
+    .send({ from: userAddress })
+    .then(function(receipt){
+        // The receipt object contains various information about the transaction
+        console.log("Transaction receipt:", receipt);
+    
+        // Get the emitted event logs from the receipt
+        const logs = receipt.events;
+    
+        // Assuming your event is emitted with the name 'CertificateIssued'
+        const certificateId = logs.CertificateIssued.returnValues.certificateId;
+        alert("Certificate ID: "+certificateId);
+        window.location.replace('authority.html');
+    })
+    .catch(function(error){
+        console.error("Error occurred:", error);
+        location.reload();
+    });
+    
 
-async function approveCerti() {
-	window.location.href = "approve_certificate.html";
 }
 
 
