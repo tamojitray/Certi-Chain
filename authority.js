@@ -282,9 +282,9 @@ async function checkUserRole() {
         if (userRole === 'Authority') {
             // Display the page content
             $('#name').show();
-            $('#buttons').show();
             const nameElement = document.getElementById('name');
             nameElement.innerHTML = `Welcome ${userName}`;
+            $('#buttons').show();            
         } else {
             // Redirect to login page
             alert("This page is for authority role only and your dont have authority role. Plsease check your address");
