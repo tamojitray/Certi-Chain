@@ -10,10 +10,13 @@
 
     <div id="content" style="display: none;">
         <label for="role">Role:</label>
-        <input type="text" id="role" placeholder="Role">
+        <select name="role" id="role" placeholder="Role" required>
+            <option value="Authority"> Authority </option>
+            <option value="Student"> Student </option>
+        </select>
         
         <label for="name">Name:</label>
-        <input type="text" id="name" placeholder="Name"> 
+        <input type="text" id="name" placeholder="Name" required> 
         
         <button onclick="submit()">Submit</button>
     </div>
