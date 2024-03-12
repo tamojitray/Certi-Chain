@@ -282,7 +282,7 @@ async function checkUserRole() {
                 "type": "function"
             }
         ];
-        const contractAddress = '0xFe095360461F26EDb2D695C4d503eB44F5DA25a3'; // Replace with your contract address
+        const contractAddress = '0xf22ed0af6f2ef1ef920f51a9f6d8f25a85b138e1';
         
         
         const contract = new web3.eth.Contract(contractABI, contractAddress);
