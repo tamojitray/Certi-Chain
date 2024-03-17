@@ -1,3 +1,7 @@
+let contract;
+let web3;
+let userAddress;
+
 async function checkUserRole() {
     // Check if web3 is available
     if (typeof window.ethereum === 'undefined' || typeof window.web3 === 'undefined') {
@@ -17,10 +21,10 @@ async function checkUserRole() {
             return;
         }
 
-        const userAddress = accounts[0];
+        userAddress = accounts[0];
 
         // Use web3 to check the user's role
-        const web3 = new Web3(window.ethereum);
+        web3 = new Web3(window.ethereum);
 
         // Replace 'YOUR_CONTRACT_ADDRESS' with your actual contract address
         const contractABI = [
@@ -282,10 +286,9 @@ async function checkUserRole() {
                 "type": "function"
             }
         ];
-        const contractAddress = '0xf22ed0af6f2ef1ef920f51a9f6d8f25a85b138e1';
+        const contractAddress = '0xf22ed0af6f2ef1ef920f51a9f6d8f25a85b138e1';        
         
-        
-        const contract = new web3.eth.Contract(contractABI, contractAddress);
+        contract = new web3.eth.Contract(contractABI, contractAddress);
 
         const userRole = await contract.methods.View_Roles().call({from: userAddress });
         
@@ -300,12 +303,11 @@ async function checkUserRole() {
             $('#buttons').show();            
         } else {
             // Redirect to login page
-            alert("This page is for student role only and your dont have student role. Plsease check your address");
+            alert("This page is for Student role only and you dont have Student role. Plsease check your address");
             window.location.replace('index.html');
         }
 
-    } 
-    catch (error) {
+    } catch (error) {
         console.error(error);
 
         if (error.code === 4001) {
@@ -318,17 +320,14 @@ async function checkUserRole() {
             window.location.replace('index.html');
         }
     }
-
 }
 
-async function viewCerti() {
-	window.location.href = "view_certificate_s.html";
+async function submit() {
+	const certificateId = document.getElementById('address').value;    
+    const response = await contract.methods.View_CertificateDetails(certificateId).call({from: userAddress});
+    console.log(response);
+    alert(response[0] + " " + response[1] + " " + response[2] + " " + response[3] + " " + response[4] + " " + response[5]);
 }
-
-async function approveCerti() {
-	window.location.href = "approve_certificate.html";
-}
-
 
 // Connect to MetaMask and check user role when the page loads
 $(document).ready(() => {
