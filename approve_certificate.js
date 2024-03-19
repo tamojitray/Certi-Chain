@@ -294,8 +294,8 @@ async function checkUserRole() {
         
         const userName = await contract.methods.View_RoleFromAddress().call({from: userAddress }); 
 
-        // Check if the user has the "Authority" role
-        if (userRole === 'Authority') {
+        // Check if the user has the "Student" role
+        if (userRole === 'Student') {
             // Display the page content
             $('#name').show();
             const nameElement = document.getElementById('name');
@@ -303,7 +303,7 @@ async function checkUserRole() {
             $('#buttons').show();            
         } else {
             // Redirect to login page
-            alert("This page is for authority role only and your dont have authority role. Plsease check your address");
+            alert("This page is for Student role only and you dont have Student role. Plsease check your address");
             window.location.replace('index.html');
         }
 
@@ -323,22 +323,11 @@ async function checkUserRole() {
 }
 
 async function submit() {
-	const certificateId = document.getElementById('address').value;    
-    const response= await contract.methods.View_CertificateLegit(certificateId).call({from: userAddress });
-    if (response == true) {
-        alert('Certificate Legit');
-        $('#buttons1').show();
-    }
-    else {
-        alert('Certificate not Valid');
-    }
-}
-
-async function submit1() {
-	const certificateId = document.getElementById('address1').value;    
-    const response = await contract.methods.View_CertificateDetails(certificateId).call({from: userAddress});
-    console.log(response);
-    alert(response[0] + " " + response[1] + " " + response[2] + " " + response[3] + " " + response[4] + " " + response[5]);
+	const certificateId = document.getElementById('address').value;
+    const addressToApprove = document.getElementById('address1').value;       
+    await contract.methods.AddPermission(certificateId, addressToApprove).send({from: userAddress});
+    alert("Added Successfully");
+    window.location.replace('student.html');
 }
 
 // Connect to MetaMask and check user role when the page loads
