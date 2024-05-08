@@ -299,7 +299,11 @@ async function checkUserRole() {
             // Display the page content
             $('#name').show();
             const nameElement = document.getElementById('name');
-            nameElement.innerHTML = `Welcome ${userName}`;
+            nameElement.innerHTML = `${userName}`;
+            nameElement.style.fontSize = "25pt";
+            nameElement.style.color= "#370e7d";
+            nameElement.style.fontWeight= "bold";
+            nameElement.style.textAlign="Center";
             $('#buttons').show();            
         } else {
             // Redirect to login page
@@ -323,9 +327,18 @@ async function checkUserRole() {
 }
 
 async function submit() {
-	const certificateId = document.getElementById('address').value;    
+	const certificateId = document.getElementById('address').value;
+    const legit = await contract.methods.View_CertificateLegit(certificateId).call({from: userAddress }); 
+    if (legit === true) {
+        alert('Certificate is Valid');
+        $('#tb').show();
+    }
+    else {
+        alert('Certificate is Invalid');
+        $('#tb').hide();
+    }   
     const response = await contract.methods.View_CertificateDetails(certificateId).call({from: userAddress});
-    alert(contract.message);
+    
     console.log(response);
     const c1=document.getElementById("c1");
     const c2=document.getElementById("c2");
