@@ -4,27 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CertiBlock</title>
+    <link rel="stylesheet" href="issue_certificate.css">
 </head>
 <body>
 
     <div id="name" style="display: none;"></div>
 
-    <div id="buttons" style="display: none;">
-        <label for="address">Student Address:</label>
-        <input type="text" id="address" placeholder="Student Address">
-        
-        <label for="course">Course:</label>
-        <input type="text" id="course" placeholder="Course"> 
-
-        <label for="grade">Grade:</label>
-        <input type="text" id="grade" placeholder="Grade">
-        
-        <label for="roll">Roll:</label>
-        <input type="text" id="roll" placeholder="Roll"> 
-
-        <label for="year">Year:</label>
-        <input type="text" id="year" placeholder="Year"> 
-        <button id="issueCerti" onclick="submit()">Submit</button>
+        <div class="container">
+            <div class="form-group">
+                <label for="address">Student Address:</label>
+                <input type="text" id="address" placeholder="Student Address">
+            </div>
+            
+            <div class="form-group">
+                <label for="course">Course:</label>
+                <input type="text" id="course" placeholder="Course"> 
+            </div>
+    
+            <div class="form-group">
+                <label for="grade">Grade:</label>
+                <input type="text" id="grade" placeholder="Grade">
+            </div>
+            
+            <div class="form-group">
+                <label for="roll">Roll:</label>
+                <input type="text" id="roll" placeholder="Roll"> 
+            </div>
+    
+            <div class="form-group">
+                <label for="year">Year:</label>
+                <input type="text" id="year" placeholder="Year"> 
+            </div>
+            
+            <button class="btn-submit" onclick="submit()">Submit</button>
     </div>
     
 

@@ -299,7 +299,10 @@ async function checkUserRole() {
             // Display the page content
             $('#name').show();
             const nameElement = document.getElementById('name');
-            nameElement.innerHTML = `Welcome ${userName}`;
+            nameElement.innerHTML = `${userName}`;
+            nameElement.style.fontSize = "25pt";
+            nameElement.style.color= "#370e7d";
+            nameElement.style.fontWeight= "bold";
             $('#buttons').show();            
         } else {
             // Redirect to login page
