@@ -304,6 +304,7 @@ async function checkUserRole() {
             nameElement.style.fontSize = "25pt";
             nameElement.style.color= "#370e7d";
             nameElement.style.fontWeight= "bold";
+            nameElement.style.textAlign="Center";
             $('#buttons').show();            
         } else {
             // Redirect to login page
