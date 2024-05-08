@@ -335,7 +335,7 @@ async function submit() {
 }
 
 async function submit1() {
-	const certificateId = document.getElementById('address1').value;    
+	const certificateId = document.getElementById('address').value;    
     const response = await contract.methods.View_CertificateDetails(certificateId).call({from: userAddress});
     console.log(response);
     alert(response[0] + " " + response[1] + " " + response[2] + " " + response[3] + " " + response[4] + " " + response[5]);

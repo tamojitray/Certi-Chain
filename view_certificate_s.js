@@ -325,8 +325,21 @@ async function checkUserRole() {
 async function submit() {
 	const certificateId = document.getElementById('address').value;    
     const response = await contract.methods.View_CertificateDetails(certificateId).call({from: userAddress});
+    alert(contract.message);
     console.log(response);
-    alert(response[0] + " " + response[1] + " " + response[2] + " " + response[3] + " " + response[4] + " " + response[5]);
+    const c1=document.getElementById("c1");
+    const c2=document.getElementById("c2");
+	const c3=document.getElementById("c3");
+	const c4=document.getElementById("c4");
+	const c5=document.getElementById("c5");
+	const c6=document.getElementById("c6");
+
+	c1.innerHTML=`${response[0]}`;
+	c2.innerHTML=`${response[1]}`;
+	c3.innerHTML=`${response[2]}`;
+	c4.innerHTML=`${response[3]}`;
+	c5.innerHTML=`${response[4]}`;
+	c6.innerHTML=`${response[5]}`;
 }
 
 // Connect to MetaMask and check user role when the page loads
