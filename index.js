@@ -396,6 +396,7 @@ function updateUI(address) {
     const connectToMetamaskButton = document.getElementById('connectToMetamaskButton'); 
     if (isConnected) {
         statusElement.innerHTML = `Connected Address: ${address}`;
+		statusElement.style.fontSize = "18pt";
         connectToMetamaskButton.style.display = 'none'; // Hide the connect button when connected  
     }
     else {

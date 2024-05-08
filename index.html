@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CertiBlock</title>
+    <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
 
     <h1>Welcome to CertiBlock</h1>
+    <div id="di">
+        <p>This is a website to help you make unique Digital Certificates</p>
 
-    <p>This is a website to help you make unique Digital Certificates</p>
+        <div id="status"></div>
 
-    <div id="status"></div>
+        <button id="connectToMetamaskButton" onclick="connectToMetamaskButton()">Click to connect with MetaMask</button>
 
-    <button id="connectToMetamaskButton" onclick="connectToMetamaskButton()">Click to connect with MetaMask</button>
+        <button id="loginButton" style="display:none;" onclick="loginButton()">Login</button>
 
-    <button id="loginButton" style="display:none;" onclick="loginButton()">Login</button>
+        <button id="registerButton" style="display:none;" onclick="registerButton()">Register</button>
+    </div>
 
-    <button id="registerButton" style="display:none;" onclick="registerButton()">Register</button>
-
-    <script src="index.js"></script>    
+    <script src="index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@1.10.4/dist/web3.min.js"></script>
-    
+
 </body>
+
 </html>

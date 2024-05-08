@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-image: linear-gradient(135deg, #FAB2FF 10%, #1904E5 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: open sans, sans-serif;
+    color: #333;
+}
+
+h1 {
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    text-align: center;
+    font-size: 40px;
+
+}
+
+p {
+    color: #060b06;
+    font-size: 45px;
+}
+
+#status {
+    margin-top: 20px;
+}
+
+#di {
+    margin-top: 100px;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    background-color: #00ff88;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+}
+
+button:hover {
+    background-color: blue;
+}
+
+#loginButton,
+#registerButton {
+    display: block;
+    margin: 0 auto;
+    margin-top: 40px;
+}
