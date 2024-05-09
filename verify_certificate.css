@@ -8,7 +8,6 @@ body {
 }
 
 .container {
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,11 +20,15 @@ body {
     max-width: 400px;
     margin: 20px auto;
     padding: 60px;
-    box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
     
 }
+
 .form-group {
     margin-bottom: 20px;
+    max-width: 600px;
+    
 }
 
 .form-group label {
@@ -57,4 +60,28 @@ body {
 }
 button:hover {
     background-color: blue;
+}
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
 }
