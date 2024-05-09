@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CertiBlock</title>
+    <link rel="stylesheet" href="approve_certificate.css">
 </head>
 <body>
 
     <div id="name" style="display: none;"></div>
 
     <div id="buttons" style="display: none;">
+    <div>
         <label for="address">Certificate ID:</label>
         <input type="text" id="address" placeholder="0x000000...">
-
+    </div>
+    <div>
         <label for="address1">Address to give access:</label>
         <input type="text" id="address1" placeholder="0x000000...">
-        
+    </div>    
         
         <button id="issueCerti" onclick="submit()">Submit</button>
     </div>
