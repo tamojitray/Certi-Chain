@@ -293,6 +293,16 @@ async function checkUserRole() {
             
             const addressElement = document.getElementById('address');
             addressElement.innerHTML = `Address: ${userAddress}`;
+            addressElement.style.fontSize = "15pt";
+            addressElement.style.color= "white";
+            addressElement.style.textAlign="center";
+            addressElement.style.border = "2px solid white";
+            addressElement.style.padding = "10px";
+            addressElement.style.margin = "20px";
+            addressElement.style.display = "inline-block";
+            addressElement.style.display = "flex";
+            addressElement.style.justifyContent = "center";
+
         } 
         else {
             // Redirect to login page
